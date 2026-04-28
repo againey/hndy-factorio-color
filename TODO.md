@@ -31,7 +31,7 @@
 
 ## Documentation
 
-- [ ] Choose license
+- [x] Choose license
 - [ ] Write class and function descriptions
 - [ ] Add usage examples to readme
 - [ ] Decide initial release version
