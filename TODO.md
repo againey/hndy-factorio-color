@@ -12,6 +12,7 @@
 - [x] ColorOklab
 - [x] ColorOklch
 - [x] static constants for component ranges
+- [ ] Account for alpha values when interpolating hue
 
 ## Conversion
 
@@ -19,8 +20,18 @@
 - [x] color instance conversions
 - [x] polymorphic color instance conversions
 - [x] reinterpretation without conversion
-- [x] CSS conversions that match CSS component ranges 
+- [x] CSS conversions that match CSS component ranges
+- [ ] Normalize game color value ranges
+- [ ] Normalize game color field keys
+- [ ] Handle premultiplied or non-premultiplied game colors
 
 ## Interface
 
 - [x] Add namespace to type annotations
+
+## Documentation
+
+- [ ] Choose license
+- [ ] Write class and function descriptions
+- [ ] Add usage examples to readme
+- [ ] Decide initial release version
