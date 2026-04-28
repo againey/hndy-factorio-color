@@ -34,5 +34,5 @@
 
 - [x] Choose license
 - [x] Write class and function descriptions
-- [ ] Add usage examples to readme
+- [x] Add usage examples to readme
 - [ ] Decide initial release version
