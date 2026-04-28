@@ -225,7 +225,7 @@ ColorHsl.self_safe_normalize = ColorHsl.self_normalize
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:interpolate_linear_hue(target, t)
-	local h = interpolate_hue_linear(self.h, target.h, t)
+	local h = interpolate_hue_linear(self.h, target.h, self.a, target.a, t)
 	local s, l, a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return ColorHsl.new(h, s, l, a)
 end
@@ -234,7 +234,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:self_interpolate_linear_hue(target, t)
-	self.h = interpolate_hue_linear(self.h, target.h, t)
+	self.h = interpolate_hue_linear(self.h, target.h, self.a, target.a, t)
 	self.s, self.l, self.a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return self
 end
@@ -243,7 +243,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:interpolate_shorter_hue(target, t)
-	local h = interpolate_hue_shorter(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	local h = interpolate_hue_shorter(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	local s, l, a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return ColorHsl.new(h, s, l, a)
 end
@@ -252,7 +252,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:self_interpolate_shorter_hue(target, t)
-	self.h = interpolate_hue_shorter(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	self.h = interpolate_hue_shorter(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	self.s, self.l, self.a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return self
 end
@@ -261,7 +261,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:interpolate_longer_hue(target, t)
-	local h = interpolate_hue_longer(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	local h = interpolate_hue_longer(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	local s, l, a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return ColorHsl.new(h, s, l, a)
 end
@@ -270,7 +270,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:self_interpolate_longer_hue(target, t)
-	self.h = interpolate_hue_longer(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	self.h = interpolate_hue_longer(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	self.s, self.l, self.a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return self
 end
@@ -279,7 +279,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:interpolate_increasing_hue(target, t)
-	local h = interpolate_hue_increasing(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	local h = interpolate_hue_increasing(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	local s, l, a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return ColorHsl.new(h, s, l, a)
 end
@@ -288,7 +288,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:self_interpolate_increasing_hue(target, t)
-	self.h = interpolate_hue_increasing(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	self.h = interpolate_hue_increasing(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	self.s, self.l, self.a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return self
 end
@@ -297,7 +297,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:interpolate_decreasing_hue(target, t)
-	local h = interpolate_hue_decreasing(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	local h = interpolate_hue_decreasing(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	local s, l, a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return ColorHsl.new(h, s, l, a)
 end
@@ -306,7 +306,7 @@ end
 ---@param t number
 ---@return Hndy.Color.Hsl
 function ColorHsl:self_interpolate_decreasing_hue(target, t)
-	self.h = interpolate_hue_decreasing(modulo(self.h, 1.0), modulo(target.h, 1.0), t)
+	self.h = interpolate_hue_decreasing(modulo(self.h, 1.0), modulo(target.h, 1.0), self.a, target.a, t)
 	self.s, self.l, self.a = interpolate_two_components(self.s, target.s, self.l, target.l, self.a, target.a, t)
 	return self
 end

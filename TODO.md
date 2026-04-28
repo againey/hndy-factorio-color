@@ -12,7 +12,7 @@
 - [x] ColorOklab
 - [x] ColorOklch
 - [x] static constants for component ranges
-- [ ] Account for alpha values when interpolating hue
+- [x] Account for alpha values when interpolating hue
 
 ## Conversion
 
