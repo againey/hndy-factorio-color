@@ -13,6 +13,7 @@
 - [x] ColorOklch
 - [x] static constants for component ranges
 - [x] Account for alpha values when interpolating hue
+- [ ] Handle gamut clamping more accurately to maintain general hue
 
 ## Conversion
 
@@ -32,6 +33,6 @@
 ## Documentation
 
 - [x] Choose license
-- [ ] Write class and function descriptions
+- [x] Write class and function descriptions
 - [ ] Add usage examples to readme
 - [ ] Decide initial release version

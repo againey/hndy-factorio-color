@@ -24,6 +24,7 @@ local InterpretAsRgb = {
 	[ColorSrgb] = Interpret.as_rgb_from_srgb,
 }
 
+---Creates and returns a new ColorRgb instance using the red, green, blue, and alpha components of the provided color directly without doing any gamma conversion.
 ---@param color Hndy.Color.Rgb | Hndy.Color.Srgb
 ---@return Hndy.Color.Rgb
 function Interpret.as_rgb(color)
@@ -53,6 +54,7 @@ local InterpretAsSrgb = {
 	[ColorSrgb] = as_srgb_from_srgb,
 }
 
+---Creates and returns a new ColorSrgb instance using the red, green, blue, and alpha components of the provided color directly without doing any gamma conversion.
 ---@param color Hndy.Color.Rgb | Hndy.Color.Srgb
 ---@return Hndy.Color.Srgb
 function Interpret.as_srgb(color)

@@ -16,11 +16,14 @@ local RawConvert = require("__hndy-color__.util.raw-convert")
 local to_srgb_from_rgb = RawConvert.to_srgb_from_rgb
 local to_rgb_from_srgb = RawConvert.to_rgb_from_srgb
 
+---A class to handle instances of colors represented as red, green, and blue channels, plus alpha for transparency.
+---
+---For more details, see [Wikipedia: RGB color model](https://en.wikipedia.org/wiki/RGB_color_model).
 ---@class Hndy.Color.Rgb : Hndy.Color.ColorBase
----@field r number
----@field g number
----@field b number
----@field a number
+---@field r number Red, ranging from 0 to 1
+---@field g number Green, ranging from 0 to 1
+---@field b number Blue, ranging from 0 to 1
+---@field a number Alpha, representing opacity, ranging from 0 (fully transparent) to 1 (fully opaque)
 local ColorRgb = {}
 ColorRgb.__index = ColorRgb
 
@@ -36,6 +39,7 @@ ColorRgb.b_max = 1.0
 ColorRgb.a_min = 0.0
 ColorRgb.a_max = 1.0
 
+---Constructs a new ColorRgb instance using the provided components. If not supplied, alpha is assumed to be 1 (fully opaque).
 ---@param r number
 ---@param g number
 ---@param b number
@@ -46,26 +50,30 @@ function ColorRgb.new(r, g, b, a)
 	return setmetatable({ r = r, g = g, b = b, a = a or 1.0 }, ColorRgb)
 end
 
----@param r integer
----@param g integer
----@param b integer
----@param a integer | nil
+---Constructs a new ColorRgb instance using a subset of the values accepted by the [rgb() CSS function](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/rgb).
+---@param r integer Red as a byte value from 0 to 255
+---@param g integer Green as a byte value from 0 to 255
+---@param b integer Blue as a byte value from 0 to 255
+---@param a integer | nil Alpha as a percentage from 0 to 100
 ---@return Hndy.Color.Rgb
 ---@overload fun(r: integer, g: integer, b: integer): Hndy.Color.Rgb
 function ColorRgb.new_from_css(r, g, b, a)
 	return ColorRgb.new(to_unit(r, 255), to_unit(g, 255), to_unit(b, 255), a and to_unit(a, 100) or 1.0)
 end
 
+---Returns the four color components inverting the range conversions of [new_from_css](lua://Hndy.Color.Rgb.new_from_css).
 ---@return integer, integer, integer, integer
 function ColorRgb:to_css()
 	return from_unit(self.r, 255), from_unit(self.g, 255), from_unit(self.b, 255), from_unit(self.a, 100)
 end
 
+---Creates and returns a new instance of ColorRgb with the exact same values as self.
 ---@return Hndy.Color.Rgb
 function ColorRgb:clone()
 	return ColorRgb.new(self.r, self.g, self.b, self.a)
 end
 
+---Copies all color components to another existing instance of ColorRgb so that the target becomes identical to self.
 ---@param target Hndy.Color.Rgb
 ---@return Hndy.Color.Rgb
 function ColorRgb:copy_to(target)
@@ -76,16 +84,19 @@ function ColorRgb:copy_to(target)
 	return target
 end
 
+---Returns a game color representation of this color converted to sRGB without premultiplying the RGB components by the alpha component.
 ---@return Hndy.Color.GameColor
 function ColorRgb:to_game_color()
 	return to_alpha_game_color(self.a, to_srgb_from_rgb(self.r, self.g, self.b))
 end
 
+---Returns a game color representation of this color converted to sRGB after premultiplying the RGB components by the alpha component.
 ---@return Hndy.Color.GameColor
 function ColorRgb:to_premultiplied_game_color()
 	return to_premultiplied_alpha_game_color(self.a, to_srgb_from_rgb(self.r, self.g, self.b))
 end
 
+---Constructs a new ColorRgb instance from a game color whose components are presumed to not be premultiplied by the alpha component.
 ---@param color Hndy.Color.GameColor
 ---@return Hndy.Color.Rgb
 function ColorRgb.from_game_color(color)
@@ -93,6 +104,7 @@ function ColorRgb.from_game_color(color)
 	return ColorRgb.new(r, g, b, color.a or 1.0)
 end
 
+---Constructs a new ColorRgb instance from a game color whose components are presumed to be premultiplied by the alpha component.
 ---@param color Hndy.Color.GameColor
 ---@return Hndy.Color.Rgb
 function ColorRgb.from_premultiplied_game_color(color)
@@ -102,46 +114,54 @@ function ColorRgb.from_premultiplied_game_color(color)
 	return ColorRgb.new(r, g, b, a)
 end
 
+---Creates and returns a new instance of ColorRgb with the same values as self, but with any specified components replaced with new values.
 ---@param components { r: number | nil, g: number | nil, b: number | nil, a: number | nil }
 ---@return Hndy.Color.Rgb
 function ColorRgb:with(components)
 	return ColorRgb.new(components.r or self.r, components.g or self.g, components.b or self.b, components.a or self.a)
 end
 
+---Creates and returns a new instance of ColorRgb with the same values as self, but with the red component replaced with a new value.
 ---@param red number
 ---@return Hndy.Color.Rgb
 function ColorRgb:with_red(red)
 	return ColorRgb.new(red, self.g, self.b, self.a)
 end
 
+---Creates and returns a new instance of ColorRgb with the same values as self, but with the green component replaced with a new value.
 ---@param green number
 ---@return Hndy.Color.Rgb
 function ColorRgb:with_green(green)
 	return ColorRgb.new(self.r, green, self.b, self.a)
 end
 
+---Creates and returns a new instance of ColorRgb with the same values as self, but with the blue component replaced with a new value.
 ---@param blue number
 ---@return Hndy.Color.Rgb
 function ColorRgb:with_blue(blue)
 	return ColorRgb.new(self.r, self.g, blue, self.a)
 end
 
+---Creates and returns a new instance of ColorRgb with the same values as self, but with the alpha component replaced with a new value.
 ---@param alpha number
 ---@return Hndy.Color.Rgb
 function ColorRgb:with_alpha(alpha)
 	return ColorRgb.new(self.r, self.g, self.b, alpha)
 end
 
+---Evaluates whether the color is within the acceptable gamut based on its red, green, and blue components.
 ---@return boolean
 function ColorRgb:is_within_gamut()
 	return self.r >= 0.0 and self.r <= 1.0 and self.g >= 0.0 and self.g <= 1.0 and self.b >= 0.0 and self.b <= 1.0
 end
 
+---Clamps red, green, and blue components to the acceptable gamut and returns the adjusted color as a new instance of ColorRgb.
 ---@return Hndy.Color.Rgb
 function ColorRgb:clamp_to_gamut()
 	return ColorRgb.new(clamp(self.r, 0.0, 1.0), clamp(self.g, 0.0, 1.0), clamp(self.b, 0.0, 1.0), self.a)
 end
 
+---Clamps red, green, and blue components to the acceptable gamut and applies those changes in place.
 ---@return Hndy.Color.Rgb
 function ColorRgb:self_clamp_to_gamut()
 	self.r = clamp(self.r, 0.0, 1.0)
@@ -154,32 +174,38 @@ ColorRgb.is_within_safe_gamut = ColorRgb.is_within_gamut
 ColorRgb.clamp_to_safe_gamut = ColorRgb.clamp_to_gamut
 ColorRgb.self_clamp_to_safe_gamut = ColorRgb.self_clamp_to_gamut
 
+---Evaluates whether the alpha component is within the acceptable range.
 ---@return boolean
 function ColorRgb:is_normal_alpha()
 	return self.a >= 0.0 and self.a <= 1.0
 end
 
+---Clamps the alpha component to the acceptable range and returns the adjusted color as a new instance of ColorRgb.
 ---@return Hndy.Color.Rgb
 function ColorRgb:normalize_alpha()
 	return ColorRgb.new(self.r, self.g, self.b, clamp(self.a, 0.0, 1.0))
 end
 
+---Clamps the alpha component to the acceptable range and applies that change in place.
 ---@return Hndy.Color.Rgb
 function ColorRgb:self_normalize_alpha()
 	self.a = clamp(self.a, 0.0, 1.0)
 	return self
 end
 
+---Evaluates both whether the color is within the acceptable gamut and the alpha component is within the acceptable range.
 ---@return boolean
 function ColorRgb:is_normal()
 	return self.r >= 0.0 and self.r <= 1.0 and self.g >= 0.0 and self.g <= 1.0 and self.b >= 0.0 and self.b <= 1.0 and self.a >= 0.0 and self.a <= 1.0
 end
 
+---Clamps both the color to the acceptable gamut and the alpha component to the acceptable range and returns the adjusted color as a new instance of ColorRgb.
 ---@return Hndy.Color.Rgb
 function ColorRgb:normalize()
 	return ColorRgb.new(clamp(self.r, 0.0, 1.0), clamp(self.g, 0.0, 1.0), clamp(self.b, 0.0, 1.0), clamp(self.a, 0.0, 1.0))
 end
 
+---Clamps both the color to the acceptable gamut and the alpha component to the acceptable range and applies those changes in place.
 ---@return Hndy.Color.Rgb
 function ColorRgb:self_normalize()
 	self.r = clamp(self.r, 0.0, 1.0)
@@ -193,6 +219,9 @@ ColorRgb.is_safe_normal = ColorRgb.is_normal
 ColorRgb.safe_normalize = ColorRgb.normalize
 ColorRgb.self_safe_normalize = ColorRgb.self_normalize
 
+---Linearly interpolates all color components between self and target by the provided amount and returns the interpolated color as a new instance of ColorRgb.
+---
+---The alpha channel is taken into account so that more opaque colors have a strong pull on the interpolation than more transparent colors.
 ---@param target Hndy.Color.Rgb
 ---@param t number
 ---@return Hndy.Color.Rgb
@@ -201,6 +230,9 @@ function ColorRgb:interpolate(target, t)
 	return ColorRgb.new(r, g, b, a)
 end
 
+---Linearly interpolates all color components between self and target by the provided amount and applies those changes in place.
+---
+---The alpha channel is taken into account so that more opaque colors have a strong pull on the interpolation than more transparent colors.
 ---@param target Hndy.Color.Rgb
 ---@param t number
 ---@return Hndy.Color.Rgb

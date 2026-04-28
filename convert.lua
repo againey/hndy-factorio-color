@@ -164,6 +164,7 @@ local ConvertToRgb = {
 	[ColorOklch] = Convert.to_rgb_from_oklch,
 }
 
+---Creates and returns a new ColorRgb instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Rgb
 function Convert.to_rgb(color)
@@ -250,6 +251,7 @@ local ConvertToSrgb = {
 	[ColorOklch] = Convert.to_srgb_from_oklch,
 }
 
+---Creates and returns a new ColorSrgb instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Srgb
 function Convert.to_srgb(color)
@@ -336,6 +338,7 @@ local ConvertToHsl = {
 	[ColorOklch] = Convert.to_hsl_from_oklch,
 }
 
+---Creates and returns a new ColorHsl instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Hsl
 function Convert.to_hsl(color)
@@ -422,6 +425,7 @@ local ConvertToHsv = {
 	[ColorOklch] = Convert.to_hsv_from_oklch,
 }
 
+---Creates and returns a new ColorHsv instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Hsv
 function Convert.to_hsv(color)
@@ -508,6 +512,7 @@ local ConvertToHwb = {
 	[ColorOklch] = Convert.to_hwb_from_oklch,
 }
 
+---Creates and returns a new ColorHwb instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Hwb
 function Convert.to_hwb(color)
@@ -594,6 +599,7 @@ local ConvertToLab = {
 	[ColorOklch] = Convert.to_lab_from_oklch,
 }
 
+---Creates and returns a new ColorLab instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Lab
 function Convert.to_lab(color)
@@ -680,6 +686,7 @@ local ConvertToLch = {
 	[ColorOklch] = Convert.to_lch_from_oklch,
 }
 
+---Creates and returns a new ColorLch instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Lch
 function Convert.to_lch(color)
@@ -766,6 +773,7 @@ local ConvertToOklab = {
 	[ColorOklch] = Convert.to_oklab_from_oklch,
 }
 
+---Creates and returns a new ColorOklab instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Oklab
 function Convert.to_oklab(color)
@@ -852,6 +860,7 @@ local ConvertToOklch = {
 	[ColorOklch] = to_oklch_from_oklch,
 }
 
+---Creates and returns a new ColorOklch instance by converting from whatever color space was provided.
 ---@param color Hndy.Color.Any
 ---@return Hndy.Color.Oklch
 function Convert.to_oklch(color)
