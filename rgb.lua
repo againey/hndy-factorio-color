@@ -16,6 +16,9 @@ local RawConvert = require("__hndy-color__.util.raw-convert")
 local to_srgb_from_rgb = RawConvert.to_srgb_from_rgb
 local to_rgb_from_srgb = RawConvert.to_rgb_from_srgb
 
+local math_min = math.min
+local math_max = math.max
+
 ---A class to handle instances of colors represented as red, green, and blue channels, plus alpha for transparency.
 ---
 ---For more details, see [Wikipedia: RGB color model](https://en.wikipedia.org/wiki/RGB_color_model).
@@ -158,15 +161,25 @@ end
 ---Clamps red, green, and blue components to the acceptable gamut and returns the adjusted color as a new instance of ColorRgb.
 ---@return Hndy.Color.Rgb
 function ColorRgb:clamp_to_gamut()
-	return ColorRgb.new(clamp(self.r, 0.0, 1.0), clamp(self.g, 0.0, 1.0), clamp(self.b, 0.0, 1.0), self.a)
+	return self:clone():self_clamp_to_gamut()
 end
 
 ---Clamps red, green, and blue components to the acceptable gamut and applies those changes in place.
 ---@return Hndy.Color.Rgb
 function ColorRgb:self_clamp_to_gamut()
-	self.r = clamp(self.r, 0.0, 1.0)
-	self.g = clamp(self.g, 0.0, 1.0)
-	self.b = clamp(self.b, 0.0, 1.0)
+	local min = math_min(self.r, self.g, self.b)
+	if min < 0.0 then
+		self.r = 0.0
+		self.g = 0.0
+		self.b = 0.0
+	else
+		local max = math_max(self.r, self.g, self.b)
+		if max > 1.0 then
+			self.r = self.r / max
+			self.g = self.g / max
+			self.b = self.b / max
+		end
+	end
 	return self
 end
 
@@ -202,17 +215,13 @@ end
 ---Clamps both the color to the acceptable gamut and the alpha component to the acceptable range and returns the adjusted color as a new instance of ColorRgb.
 ---@return Hndy.Color.Rgb
 function ColorRgb:normalize()
-	return ColorRgb.new(clamp(self.r, 0.0, 1.0), clamp(self.g, 0.0, 1.0), clamp(self.b, 0.0, 1.0), clamp(self.a, 0.0, 1.0))
+	return self:clone():self_clamp_to_gamut():self_normalize_alpha()
 end
 
 ---Clamps both the color to the acceptable gamut and the alpha component to the acceptable range and applies those changes in place.
 ---@return Hndy.Color.Rgb
 function ColorRgb:self_normalize()
-	self.r = clamp(self.r, 0.0, 1.0)
-	self.g = clamp(self.g, 0.0, 1.0)
-	self.b = clamp(self.b, 0.0, 1.0)
-	self.a = clamp(self.a, 0.0, 1.0)
-	return self
+	return self:self_clamp_to_gamut():self_normalize_alpha()
 end
 
 ColorRgb.is_safe_normal = ColorRgb.is_normal

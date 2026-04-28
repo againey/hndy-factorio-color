@@ -13,7 +13,7 @@
 - [x] ColorOklch
 - [x] static constants for component ranges
 - [x] Account for alpha values when interpolating hue
-- [ ] Handle gamut clamping more accurately to maintain general hue
+- [x] Handle gamut clamping more accurately to maintain general hue
 
 ## Conversion
 

@@ -18,6 +18,9 @@ local RawConvert = require("__hndy-color__.util.raw-convert")
 local to_srgb_from_oklab = RawConvert.to_srgb_from_oklab
 local to_oklab_from_srgb = RawConvert.to_oklab_from_srgb
 
+local math_abs = math.abs
+local math_max = math.max
+
 ---A class to handle instances of colors represented as lightness, green-red axis, and blue-yellow axis, plus alpha for transparency.
 ---
 ---For more details, see [Wikipedia: Oklab color space](https://en.wikipedia.org/wiki/Oklab_color_space).
@@ -189,7 +192,7 @@ end
 ---The safe gamut is more restricted than the full gamut to avoid colors that cannot be accurately presented on many phsyical display devices.
 ---@return Hndy.Color.Oklab
 function ColorOklab:clamp_to_safe_gamut()
-	return ColorOklab.new(clamp(self.l, 0.0, 1.0), clamp(self.gr, -1.0, 1.0), clamp(self.by, -1.0, 1.0), self.a)
+	return self:clone():self_clamp_to_safe_gamut()
 end
 
 ---Clamps lightness component to the safe gamut and applies those changes in place.
@@ -198,8 +201,11 @@ end
 ---@return Hndy.Color.Oklab
 function ColorOklab:self_clamp_to_safe_gamut()
 	self.l = clamp(self.l, 0.0, 1.0)
-	self.gr = clamp(self.gr, -1.0, 1.0)
-	self.by = clamp(self.by, -1.0, 1.0)
+	local max = math_max(math_abs(self.gr), math_abs(self.by))
+	if max > 1.0 then
+		self.gr = self.gr / max
+		self.by = self.by / max
+	end
 	return self
 end
 
@@ -255,7 +261,7 @@ end
 ---The safe gamut is more restricted than the full gamut to avoid colors that cannot be accurately presented on many phsyical display devices.
 ---@return Hndy.Color.Oklab
 function ColorOklab:safe_normalize()
-	return ColorOklab.new(clamp(self.l, 0.0, 1.0), clamp(self.gr, -1.0, 1.0), clamp(self.by, -1.0, 1.0), clamp(self.a, 0.0, 1.0))
+	return self:clone():self_clamp_to_safe_gamut():self_normalize_alpha()
 end
 
 ---Clamps both the color to the safe gamut and the alpha component to the acceptable range and applies those changes in place.
@@ -263,11 +269,7 @@ end
 ---The safe gamut is more restricted than the full gamut to avoid colors that cannot be accurately presented on many phsyical display devices.
 ---@return Hndy.Color.Oklab
 function ColorOklab:self_safe_normalize()
-	self.l = clamp(self.l, 0.0, 1.0)
-	self.gr = clamp(self.gr, -1.0, 1.0)
-	self.by = clamp(self.by, -1.0, 1.0)
-	self.a = clamp(self.a, 0.0, 1.0)
-	return self
+	return self:self_clamp_to_safe_gamut():self_normalize_alpha()
 end
 
 ---Linearly interpolates all color components between self and target by the provided amount and returns the interpolated color as a new instance of ColorOklab.
