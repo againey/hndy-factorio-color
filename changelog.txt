@@ -1,0 +1,14 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 29. 04. 2026
+  Major Features:
+    - Initial release
+    - 9 color spaces: RGB, sRGB, HSL, HSV, HWB, CIELAB, CIELCh, Oklab, Oklch
+  Features:
+    - Conversion between color spaces
+    - Conversion to and from game color
+    - Interpolation between two colors
+  Minor Features:
+    - Conversion to and from CSS-compatible components
+    - Gamut clamping and component normalization
+    - Clone with mutation
