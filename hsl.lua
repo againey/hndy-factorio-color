@@ -2,8 +2,14 @@ require("__hndy-color__.color-base")
 require("__hndy-color__.hue-base")
 
 local GameColor = require("__hndy-color__.game-color")
+local to_game_color = GameColor.to_game_color
 local to_alpha_game_color = GameColor.to_alpha_game_color
 local to_premultiplied_alpha_game_color = GameColor.to_premultiplied_alpha_game_color
+local to_game_color_array = GameColor.to_game_color_array
+local to_alpha_game_color_array = GameColor.to_alpha_game_color_array
+local to_premultiplied_alpha_game_color_array = GameColor.to_premultiplied_alpha_game_color_array
+local to_unit_srgb_components_from_game_color = GameColor.to_unit_srgb_components_from_game_color
+local to_unit_srgb_components_from_premultiplied_game_color = GameColor.to_unit_srgb_components_from_premultiplied_game_color
 
 local Arithmetic = require("__hndy-color__.util.arithmetic")
 local clamp = Arithmetic.clamp
@@ -100,33 +106,57 @@ function ColorHsl:copy_to(target)
 	return target
 end
 
----Returns a game color representation of this color converted to sRGB without premultiplying the RGB components by the alpha component.
----@return Hndy.Color.GameColor
+---Returns a game color representation of this color converted to sRGB without any alpha component.
+---@return Hndy.Color.GameColorTableRgb
 function ColorHsl:to_game_color()
+	return to_game_color(self.a, to_srgb_from_hsl(self.h, self.s, self.l))
+end
+
+---Returns a game color representation of this color converted to sRGB without premultiplying the RGB components by the alpha component.
+---@return Hndy.Color.GameColorTableRgba
+function ColorHsl:to_alpha_game_color()
 	return to_alpha_game_color(self.a, to_srgb_from_hsl(self.h, self.s, self.l))
 end
 
 ---Returns a game color representation of this color converted to sRGB after premultiplying the RGB components by the alpha component.
----@return Hndy.Color.GameColor
+---@return Hndy.Color.GameColorTableRgba
 function ColorHsl:to_premultiplied_game_color()
 	return to_premultiplied_alpha_game_color(self.a, to_srgb_from_hsl(self.h, self.s, self.l))
+end
+
+---Returns a game color array representation of this color converted to sRGB without any alpha component.
+---@return Hndy.Color.GameColorArrayRgb
+function ColorHsl:to_game_color_array()
+	return to_game_color_array(self.a, to_srgb_from_hsl(self.h, self.s, self.l))
+end
+
+---Returns a game color array representation of this color converted to sRGB without premultiplying the RGB components by the alpha component.
+---@return Hndy.Color.GameColorArrayRgba
+function ColorHsl:to_alpha_game_color_array()
+	return to_alpha_game_color_array(self.a, to_srgb_from_hsl(self.h, self.s, self.l))
+end
+
+---Returns a game color array representation of this color converted to sRGB after premultiplying the RGB components by the alpha component.
+---@return Hndy.Color.GameColorArrayRgba
+function ColorHsl:to_premultiplied_game_color_array()
+	return to_premultiplied_alpha_game_color_array(self.a, to_srgb_from_hsl(self.h, self.s, self.l))
 end
 
 ---Constructs a new ColorHsl instance from a game color whose components are presumed to not be premultiplied by the alpha component.
 ---@param color Hndy.Color.GameColor
 ---@return Hndy.Color.Hsl
 function ColorHsl.from_game_color(color)
-	local h, s, l = to_hsl_from_srgb(color.r, color.g, color.b)
-	return ColorHsl.new(h, s, l, color.a or 1.0)
+	local r, g, b, a = to_unit_srgb_components_from_game_color(color)
+	local h, s, l = to_hsl_from_srgb(r, g, b)
+	return ColorHsl.new(h, s, l, a)
 end
 
 ---Constructs a new ColorHsl instance from a game color whose components are presumed to be premultiplied by the alpha component.
 ---@param color Hndy.Color.GameColor
 ---@return Hndy.Color.Hsl
 function ColorHsl.from_premultiplied_game_color(color)
-	local a = color.a or 1.0
-	if a == 0.0 then return ColorHsl.new(0.0, 0.0, 0.0, a) end
-	local h, s, l = to_hsl_from_srgb(color.r / a, color.g / a, color.b / a)
+	local r, g, b, a = to_unit_srgb_components_from_premultiplied_game_color(color)
+	local h, s, l = to_hsl_from_srgb(r, g, b)
 	return ColorHsl.new(h, s, l, a)
 end
 

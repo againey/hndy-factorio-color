@@ -22,9 +22,9 @@
 - [x] polymorphic color instance conversions
 - [x] reinterpretation without conversion
 - [x] CSS conversions that match CSS component ranges
-- [ ] Normalize game color value ranges
-- [ ] Normalize game color field keys
-- [ ] Handle premultiplied or non-premultiplied game colors
+- [x] Normalize game color value ranges
+- [x] Normalize game color field keys
+- [x] Handle premultiplied or non-premultiplied game colors
 
 ## Interface
 

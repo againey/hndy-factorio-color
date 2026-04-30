@@ -1,15 +1,15 @@
 ---@class Hndy.Color.HueBase
 ---@field h number
----@field is_normal_hue fun(self:  Hndy.Color.HueBase): boolean
----@field normalize_hue fun(self:  Hndy.Color.HueBase):  Hndy.Color.HueBase
----@field self_normalize_hue fun(self:  Hndy.Color.HueBase):  Hndy.Color.HueBase
----@field interpolate_linear_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field self_interpolate_linear_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field interpolate_shorter_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field self_interpolate_shorter_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field interpolate_longer_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field self_interpolate_longer_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field interpolate_increasing_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field self_interpolate_increasing_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field interpolate_decreasing_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
----@field self_interpolate_decreasing_hue fun(self:  Hndy.Color.HueBase, target:  Hndy.Color.HueBase, t: number):  Hndy.Color.HueBase
+---@field is_normal_hue fun(self: Hndy.Color.HueBase): boolean
+---@field normalize_hue fun(self: Hndy.Color.HueBase): Hndy.Color.HueBase
+---@field self_normalize_hue fun(self: Hndy.Color.HueBase): Hndy.Color.HueBase
+---@field interpolate_linear_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field self_interpolate_linear_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field interpolate_shorter_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field self_interpolate_shorter_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field interpolate_longer_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field self_interpolate_longer_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field interpolate_increasing_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field self_interpolate_increasing_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field interpolate_decreasing_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase
+---@field self_interpolate_decreasing_hue fun(self: Hndy.Color.HueBase, target: Hndy.Color.HueBase, t: number): Hndy.Color.HueBase

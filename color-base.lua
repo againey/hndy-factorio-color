@@ -2,26 +2,30 @@ require("__hndy-color__.game-color")
 
 ---@class Hndy.Color.ColorBase
 ---@field a number
----@field clone fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field copy_to fun(self:  Hndy.Color.ColorBase, target:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field to_game_color fun(self:  Hndy.Color.ColorBase): Hndy.Color.GameColor
----@field to_premultiplied_game_color fun(self:  Hndy.Color.ColorBase): Hndy.Color.GameColor
----@field from_game_color fun(color: Hndy.Color.GameColor):  Hndy.Color.ColorBase
----@field from_premultiplied_game_color fun(color: Hndy.Color.GameColor):  Hndy.Color.ColorBase
----@field is_within_gamut fun(self:  Hndy.Color.ColorBase): boolean
----@field clamp_to_gamut fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field self_clamp_to_gamut fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field is_within_safe_gamut fun(self:  Hndy.Color.ColorBase): boolean
----@field clamp_to_safe_gamut fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field self_clamp_to_safe_gamut fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field is_normal_alpha fun(self:  Hndy.Color.ColorBase): boolean
----@field normalize_alpha fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field self_normalize_alpha fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field is_normal fun(self:  Hndy.Color.ColorBase): boolean
----@field normalize fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field self_normalize fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field is_safe_normal fun(self:  Hndy.Color.ColorBase): boolean
----@field safe_normalize fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field self_safe_normalize fun(self:  Hndy.Color.ColorBase):  Hndy.Color.ColorBase
----@field interpolate fun(self:  Hndy.Color.ColorBase, target:  Hndy.Color.ColorBase, t: number):  Hndy.Color.ColorBase
----@field self_interpolate fun(self:  Hndy.Color.ColorBase, target:  Hndy.Color.ColorBase, t: number):  Hndy.Color.ColorBase
+---@field clone fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field copy_to fun(self: Hndy.Color.ColorBase, target: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field to_game_color fun(self: Hndy.Color.ColorBase): Hndy.Color.GameColorTableRgb
+---@field to_alpha_game_color fun(self: Hndy.Color.ColorBase): Hndy.Color.GameColorTableRgba
+---@field to_premultiplied_game_color fun(self: Hndy.Color.ColorBase): Hndy.Color.GameColorTableRgba
+---@field to_game_color_array fun(self: Hndy.Color.ColorBase): Hndy.Color.GameColorArrayRgb
+---@field to_alpha_game_color_array fun(self: Hndy.Color.ColorBase): Hndy.Color.GameColorArrayRgba
+---@field to_premultiplied_game_color_array fun(self: Hndy.Color.ColorBase): Hndy.Color.GameColorArrayRgba
+---@field from_game_color fun(color: Hndy.Color.GameColor): Hndy.Color.ColorBase
+---@field from_premultiplied_game_color fun(color: Hndy.Color.GameColor): Hndy.Color.ColorBase
+---@field is_within_gamut fun(self: Hndy.Color.ColorBase): boolean
+---@field clamp_to_gamut fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field self_clamp_to_gamut fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field is_within_safe_gamut fun(self: Hndy.Color.ColorBase): boolean
+---@field clamp_to_safe_gamut fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field self_clamp_to_safe_gamut fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field is_normal_alpha fun(self: Hndy.Color.ColorBase): boolean
+---@field normalize_alpha fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field self_normalize_alpha fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field is_normal fun(self: Hndy.Color.ColorBase): boolean
+---@field normalize fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field self_normalize fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field is_safe_normal fun(self: Hndy.Color.ColorBase): boolean
+---@field safe_normalize fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field self_safe_normalize fun(self: Hndy.Color.ColorBase): Hndy.Color.ColorBase
+---@field interpolate fun(self: Hndy.Color.ColorBase, target: Hndy.Color.ColorBase, t: number): Hndy.Color.ColorBase
+---@field self_interpolate fun(self: Hndy.Color.ColorBase, target: Hndy.Color.ColorBase, t: number): Hndy.Color.ColorBase
