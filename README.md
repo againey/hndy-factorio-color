@@ -30,7 +30,7 @@ recommended choice.
 - Conversion to and from CSS-compatible components
 - Gamut clamping and component normalization
 - Clone with mutation
-- Interpolation
+- Interpolation between two colors
 
 ## Usage
 
@@ -49,13 +49,13 @@ local lerp_target
 
 script.on_event(defines.events.on_tick, function(event)
 	if player == nil or player.valid == false then
-	  player = game.get_player(1)
+		player = game.get_player(1)
 		if player.valid == true then
 			--Initialize process for a newly chosen player.
 			lerp_start = event.tick
 			lerp_end = lerp_start + math.random(30, 120)
 
-      --Convert the player's color into the Oklch color space, making sure that it is fully opaque.
+			--Convert the player's color into the Oklch color space, making sure that it is fully opaque.
 			lerp_source = ColorOklch.from_game_color(player.color):with_alpha(1.0)
 			--Select a random target in the Oklch color space; lightness and hue can be anything,
 			--but chroma is restricted to the range [0.5, 1.0) to ensure more vibrant colors are chosen.
