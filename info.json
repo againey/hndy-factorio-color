@@ -1,10 +1,10 @@
 {
 	"name": "hndy-color",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"title": "Hndy.Color",
 	"description": "A utility library providing classes and functions for working with various color spaces and color values.",
 	"author": "Andy Gainey",
-	"factorio_version": "2.0",
+	"factorio_version": "2.1",
 	"dependencies": ["base >= 2.0"],
 	"quality_required": false,
 	"space_travel_required": false,
